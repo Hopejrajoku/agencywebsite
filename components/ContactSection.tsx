@@ -1,15 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function SmartContactSection() {
-  const [form] = useState({ name: "", message: "" });
-
   const whatsappLink = `https://wa.me/2348059302294?text=${encodeURIComponent(
-    `Hi! My name is ${form.name || "Anonymous"}. ${form.message || ""}`
+    `Hi! My name is Anonymous. `
   )}`;
 
   return (
@@ -18,9 +15,9 @@ export default function SmartContactSection() {
       className="relative py-24 bg-black text-white overflow-hidden"
     >
       {/* Futuristic floating background layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 opacity-10 animate-[pulse_12s_infinite_alternate]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(236,72,153,0.2),transparent_60%)] animate-[pulse_15s_infinite_alternate_slow]"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_rgba(6,182,212,0.2),transparent_60%)] animate-[pulse_18s_infinite_alternate_slow]"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500 via-purple-500 to-cyan-400 opacity-10 animate-pulse"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(236,72,153,0.2),transparent_60%)] animate-pulse"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_rgba(6,182,212,0.2),transparent_60%)] animate-pulse"></div>
 
       <div className="relative max-w-6xl mx-auto px-6 flex flex-col md:flex-row gap-8 md:gap-12 items-center justify-center">
         {/* WhatsApp Contact Card */}

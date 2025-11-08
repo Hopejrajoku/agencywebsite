@@ -41,12 +41,7 @@ export default function Services() {
         {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: -20, scale: 0.95 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            transition: { duration: 0.5 },
-          }}
+          whileInView={{ opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } }}
           viewport={{ once: true }}
           className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-cyan-400 text-transparent bg-clip-text"
         >
@@ -56,11 +51,7 @@ export default function Services() {
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.5, delay: 0.1 },
-          }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.1 } }}
           viewport={{ once: true }}
           className="text-gray-400 mb-12 max-w-2xl mx-auto text-lg"
         >
@@ -77,20 +68,14 @@ export default function Services() {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                transition: {
-                  duration: 0.6,
-                  delay: idx * 0.1,
-                  type: "spring",
-                  stiffness: 80,
-                },
+                transition: { duration: 0.6, delay: idx * 0.1, type: "spring", stiffness: 80 },
               }}
               viewport={{ once: true }}
               whileHover={{
                 scale: 1.05,
                 rotate: 1,
                 translateY: -8,
-                boxShadow:
-                  "0px 0px 40px rgba(236,72,153,0.3), 0px 0px 20px rgba(34,211,238,0.2)",
+                boxShadow: "0px 0px 40px rgba(236,72,153,0.3), 0px 0px 20px rgba(34,211,238,0.2)",
               }}
               className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900/70 to-zinc-800/40 border border-zinc-700/40 backdrop-blur-xl relative overflow-hidden cursor-pointer transition-all"
             >

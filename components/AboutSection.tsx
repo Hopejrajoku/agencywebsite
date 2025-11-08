@@ -3,54 +3,32 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// Testimonials without avatars
 const testimonials = [
-  {
-    name: "Jessica .K",
-    role: "Founder, LATech",
-    country: "USA",
-    text: "They shipped our MVP in record time. The quality and speed blew us away!",
-  },
-  {
-    name: "David .M",
-    role: "CEO, InnovateX",
-    country: "USA",
-    text: "The landing page boosted signups by 3x. Futuristic design and flawless execution.",
-  },
-  {
-    name: "Chinedu .O",
-    role: "Product Manager, FinEdge",
-    country: "Nigeria",
-    text: "Working with them felt like having an in-house team. Seamless, fast, and world-class.",
-  },
-  {
-    name: "Sophia Williams",
-    role: "Startup Founder, HealthX",
-    country: "USA",
-    text: "They’re not just developers, they’re partners. My product went from idea to launch in weeks.",
-  },
+  { name: "Jessica .K", role: "Founder, LATech", country: "USA", text: "They shipped our MVP in record time. The quality and speed blew us away!" },
+  { name: "David .M", role: "CEO, InnovateX", country: "USA", text: "The landing page boosted signups by 3x. Futuristic design and flawless execution." },
+  { name: "Chinedu .O", role: "Product Manager, FinEdge", country: "Nigeria", text: "Working with them felt like having an in-house team. Seamless, fast, and world-class." },
+  { name: "Sophia Williams", role: "Startup Founder, HealthX", country: "USA", text: "They’re not just developers, they’re partners. My product went from idea to launch in weeks." },
 ];
+
+const particles = Array.from({ length: 25 }, () => ({
+  top: `${Math.random() * 100}%`,
+  left: `${Math.random() * 100}%`,
+  delay: `${Math.random() * 5}s`,
+}));
 
 export default function AboutSection() {
   return (
     <section id="about" className="relative bg-black text-white py-24 overflow-hidden">
-      {/* Floating neon particles */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(25)].map((_, i) => (
+        {particles.map((p, i) => (
           <div
             key={i}
             className="absolute w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white/30 rounded-full blur-sm animate-pulse"
-            style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              willChange: "transform, opacity",
-            }}
+            style={{ top: p.top, left: p.left, animationDelay: p.delay, willChange: "transform, opacity" }}
           />
         ))}
       </div>
 
-      {/* Testimonials */}
       <div className="max-w-6xl mx-auto px-6 mb-32">
         <h2 className="text-center text-4xl md:text-5xl font-extrabold mb-16 bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400 text-transparent bg-clip-text">
           What Our Clients Say
@@ -78,7 +56,6 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* About Us Section */}
       <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
         <div>
           <h2 className="text-4xl md:text-5xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 to-pink-500 text-transparent bg-clip-text">
@@ -92,7 +69,6 @@ export default function AboutSection() {
           </p>
         </div>
 
-        {/* Rotating Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -100,11 +76,7 @@ export default function AboutSection() {
           className="relative flex justify-center"
         >
           <div className="w-72 h-72 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 blur-3xl opacity-30 absolute"></div>
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
-            className="relative"
-          >
+          <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }} className="relative">
             <Image
               src="/logo.jpg"
               alt="About Us Illustration"

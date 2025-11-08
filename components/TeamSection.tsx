@@ -5,7 +5,7 @@ import { User } from "lucide-react";
 
 const teamMembers = [
   { name: "Temi", role: "Lead Designer" },
-  { name: "Hope-Jr", role: "Frontend Engineer" },
+  { name: "Threat", role: "Frontend Engineer" },
   { name: "Ghost", role: "Product Manager" },
   { name: "Emeka", role: "Backend Engineer" },
   { name: "Hope-Jr", role: "Founder" },

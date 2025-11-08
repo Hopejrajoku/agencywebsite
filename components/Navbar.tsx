@@ -14,28 +14,15 @@ export default function Navbar() {
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
-  /* ✅ 1. Scroll behavior: shrink navbar + darken background */
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) setScrolled(true);
-      else setScrolled(false);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  /* ✅ 2. Active section highlighting on scroll */
-  useEffect(() => {
-    const sections = ["services", "pricing","projects", "about", "contact"];
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     const handleActive = () => {
+      const sections = ["services", "pricing", "projects", "about", "contact"];
       const scrollPos = window.scrollY + window.innerHeight / 3;
 
       for (const id of sections) {
         const el = document.getElementById(id);
         if (!el) continue;
-
         const top = el.offsetTop;
         const height = el.offsetHeight;
 
@@ -45,8 +32,12 @@ export default function Navbar() {
       }
     };
 
+    window.addEventListener("scroll", handleScroll);
     window.addEventListener("scroll", handleActive);
-    return () => window.removeEventListener("scroll", handleActive);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleActive);
+    };
   }, []);
 
   return (
@@ -103,7 +94,6 @@ export default function Navbar() {
             >
               {item.charAt(0).toUpperCase() + item.slice(1)}
 
-              {/* ✅ Active underline */}
               {activeSection === item && (
                 <motion.span
                   layoutId="activeUnderline"
@@ -126,30 +116,14 @@ export default function Navbar() {
 
         {/* Mobile Menu Icon */}
         <div className="md:hidden flex items-center">
-          <motion.div
-            whileTap={{ scale: 0.8 }}
-            onClick={toggleMenu}
-            className="cursor-pointer text-white"
-          >
+          <motion.div whileTap={{ scale: 0.8 }} onClick={toggleMenu} className="cursor-pointer text-white">
             <AnimatePresence mode="wait">
               {!isOpen ? (
-                <motion.div
-                  key="menu"
-                  initial={{ opacity: 0, rotate: -90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.25 }}
-                >
+                <motion.div key="menu" initial={{ opacity: 0, rotate: -90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: 90 }} transition={{ duration: 0.25 }}>
                   <Menu className="w-7 h-7" />
                 </motion.div>
               ) : (
-                <motion.div
-                  key="close"
-                  initial={{ opacity: 0, rotate: 90 }}
-                  animate={{ opacity: 1, rotate: 0 }}
-                  exit={{ opacity: 0, rotate: -90 }}
-                  transition={{ duration: 0.25 }}
-                >
+                <motion.div key="close" initial={{ opacity: 0, rotate: 90 }} animate={{ opacity: 1, rotate: 0 }} exit={{ opacity: 0, rotate: -90 }} transition={{ duration: 0.25 }}>
                   <X className="w-7 h-7" />
                 </motion.div>
               )}
@@ -170,7 +144,7 @@ export default function Navbar() {
           >
             {["services", "pricing", "projects", "about", "contact"].map((item, i) => (
               <motion.a
-                key={item}
+                key={item + i} // ✅ unique key
                 onClick={closeMenu}
                 href={`#${item}`}
                 initial={{ opacity: 0, x: -10 }}

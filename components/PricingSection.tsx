@@ -57,9 +57,11 @@ export default function PricingSection() {
   const whatsappNumber = "2348059302294";
 
   const handleWhatsAppClick = (planTitle: string) => {
-    const message = `Hi! I'm interested in the "${planTitle}" plan.`;
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+    if (typeof window !== "undefined") {
+      const message = `Hi! I'm interested in the "${planTitle}" plan.`;
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, "_blank");
+    }
   };
 
   return (
