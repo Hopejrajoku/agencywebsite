@@ -23,12 +23,12 @@ const projects: Project[] = [
   },
   {
     title: "LearnHCIS",
-    description: "HCIS is a learning platform, and I built the admin UI to manage courses, users, and content efficiently, ensuring a seamless experience for instructors and administrators.",
+    description: "HCIS is a learning platform, and we built the admin UI to manage courses, users, and content efficiently, ensuring a seamless experience for instructors and administrators.",
     link: "https://github.com/tobinigeria/hcis",
   },
   {
     title: "Ilios",
-    description: "Ilios is a medical procurement platform that enables users to source and order medical supplies nationwide. I developed a part of the frontend, creating a user-friendly interface for seamless ordering and tracking. (Not live yet)",
+    description: "Ilios is a medical procurement platform that enables users to source and order medical supplies nationwide. We developed a part of the frontend, creating a user-friendly interface for seamless ordering and tracking. (Not live yet)",
     link: "https://github.com/ilios91/ilios-fe",
   },
   {
