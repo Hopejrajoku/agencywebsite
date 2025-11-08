@@ -5,41 +5,49 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
 
 export default function HeroSection() {
-  // Mouse position for parallax
+  // Mouse position
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useTransform(mouseY, [0, window.innerHeight], [10, -10]);
-  const rotateY = useTransform(mouseX, [0, window.innerWidth], [-10, 10]);
+  // ✅ Prevent Vercel crash (SSR)
+  const isBrowser = typeof window !== "undefined";
+  const screenHeight = isBrowser ? window.innerHeight : 1000;
+  const screenWidth = isBrowser ? window.innerWidth : 1000;
+
+  const rotateX = useTransform(mouseY, [0, screenHeight], [10, -10]);
+  const rotateY = useTransform(mouseX, [0, screenWidth], [-10, 10]);
 
   useEffect(() => {
+    if (!isBrowser) return;
+
     const handleMouse = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
+
     window.addEventListener("mousemove", handleMouse);
     return () => window.removeEventListener("mousemove", handleMouse);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isBrowser]);
 
-  // Animation variants with no delay
+  // Animation variants
   const textVariant = {
     hidden: { opacity: 0, x: -120, rotate: -3, scale: 0.95 },
-    visible: {
+    visible: (custom: number) => ({
       opacity: 1,
       x: 0,
       rotate: 0,
       scale: 1,
-      transition: { duration: 0.8, type: "spring", stiffness: 65 },
-    },
+      transition: { duration: 1, delay: custom, type: "spring", stiffness: 65 },
+    }),
   };
 
   const buttonVariant = {
-    hidden: { opacity: 0, y: 50, scale: 0.8 },
+    hidden: { opacity: 0, y: 60, scale: 0.8 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.8, type: "spring", stiffness: 90 },
+      transition: { duration: 1, delay: 1.3, type: "spring", stiffness: 90 },
     },
   };
 
@@ -68,31 +76,33 @@ export default function HeroSection() {
         style={{ rotateX, rotateY }}
         className="z-10 text-center px-4 sm:px-6 md:px-0 max-w-3xl cursor-default"
       >
-        {/* Heading */}
         <motion.h1
           className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-400 leading-tight"
+          custom={0.2}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true }}
           variants={textVariant}
         >
           Transforming Ideas into Products in 15 Days.
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
           className="mt-6 text-md sm:text-lg md:text-2xl text-gray-100 max-w-xl mx-auto"
+          custom={0.5}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true }}
           variants={textVariant}
         >
           MVPs in days. Products that scale. Speed that lasts.
         </motion.p>
 
-        {/* Call-to-Action */}
         <motion.div
           className="mt-8"
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true }}
           variants={buttonVariant}
           whileHover={{
             scale: 1.1,
@@ -122,6 +132,7 @@ export default function HeroSection() {
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
             }}
           ></div>
         ))}

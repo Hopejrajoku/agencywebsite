@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-// Preload avatars for faster rendering
+// Testimonials without avatars
 const testimonials = [
   {
     name: "Jessica .K",
@@ -31,21 +31,7 @@ const testimonials = [
   },
 ];
 
-// Preload avatar images in the browser
-if (typeof window !== "undefined") {
-  testimonials.forEach((t) => {
-    const img = new window.Image();
-    img.src = t.avatar;
-  });
-}
-
 export default function AboutSection() {
-  const testimonialVariants = {
-    hiddenLeft: { opacity: 0, x: -50 },
-    hiddenRight: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, type: "spring", stiffness: 80 } },
-  };
-
   return (
     <section id="about" className="relative bg-black text-white py-24 overflow-hidden">
       {/* Floating neon particles */}
@@ -74,21 +60,18 @@ export default function AboutSection() {
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
-              initial={window.innerWidth < 768 ? (i % 2 === 0 ? "hiddenLeft" : "hiddenRight") : { opacity: 0, y: 50 }}
-              whileInView="visible"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              variants={testimonialVariants}
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
               className="rounded-3xl p-6 bg-white/5 backdrop-blur-md border border-zinc-700 hover:border-cyan-400/60 shadow-lg cursor-pointer will-change-transform"
             >
               <p className="text-gray-300 mb-6 italic">“{t.text}”</p>
-              <div className="flex items-center gap-4">
-                <div>
-                  <h4 className="font-semibold text-lg">{t.name}</h4>
-                  <p className="text-sm text-gray-400">{t.role}</p>
-                  <p className="text-xs text-gray-500 mt-1">{t.country}</p>
-                </div>
+              <div className="flex flex-col gap-1">
+                <h4 className="font-semibold text-lg">{t.name}</h4>
+                <p className="text-sm text-gray-400">{t.role}</p>
+                <p className="text-xs text-gray-500 mt-1">{t.country}</p>
               </div>
             </motion.div>
           ))}
