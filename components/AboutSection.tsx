@@ -10,36 +10,34 @@ const testimonials = [
     role: "Founder, LATech",
     country: "USA",
     text: "They shipped our MVP in record time. The quality and speed blew us away!",
-    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
   },
   {
     name: "David .M",
     role: "CEO, InnovateX",
     country: "USA",
     text: "The landing page boosted signups by 3x. Futuristic design and flawless execution.",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
     name: "Chinedu .O",
     role: "Product Manager, FinEdge",
     country: "Nigeria",
     text: "Working with them felt like having an in-house team. Seamless, fast, and world-class.",
-    avatar: "https://randomuser.me/api/portraits/men/83.jpg",
   },
   {
     name: "Sophia Williams",
     role: "Startup Founder, HealthX",
     country: "USA",
     text: "They’re not just developers, they’re partners. My product went from idea to launch in weeks.",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
   },
 ];
 
-// Preload avatar images to avoid delays
-testimonials.forEach((t) => {
-  const img = new window.Image(); // <-- use browser Image
-  img.src = t.avatar;
-});
+// Preload avatar images in the browser
+if (typeof window !== "undefined") {
+  testimonials.forEach((t) => {
+    const img = new window.Image();
+    img.src = t.avatar;
+  });
+}
 
 export default function AboutSection() {
   const testimonialVariants = {
@@ -60,7 +58,7 @@ export default function AboutSection() {
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
-              willChange: "transform, opacity", // improve performance
+              willChange: "transform, opacity",
             }}
           />
         ))}
@@ -86,12 +84,6 @@ export default function AboutSection() {
             >
               <p className="text-gray-300 mb-6 italic">“{t.text}”</p>
               <div className="flex items-center gap-4">
-                <img
-                  src={t.avatar}
-                  alt={t.name}
-                  className="w-12 h-12 rounded-full border-2 border-cyan-400 object-cover"
-                  loading="lazy" // lazy load avatars
-                />
                 <div>
                   <h4 className="font-semibold text-lg">{t.name}</h4>
                   <p className="text-sm text-gray-400">{t.role}</p>
@@ -136,7 +128,7 @@ export default function AboutSection() {
               width={300}
               height={300}
               className="relative rounded-full object-contain drop-shadow-[0_0_35px_rgba(236,72,153,0.6)]"
-              priority // preload logo for instant render
+              priority
             />
           </motion.div>
         </motion.div>

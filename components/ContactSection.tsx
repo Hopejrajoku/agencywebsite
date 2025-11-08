@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function SmartContactSection() {
-  const [form, setForm] = useState({ name: "", message: "" });
+  const [form] = useState({ name: "", message: "" });
 
   const whatsappLink = `https://wa.me/2348059302294?text=${encodeURIComponent(
     `Hi! My name is ${form.name || "Anonymous"}. ${form.message || ""}`
