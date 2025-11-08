@@ -62,18 +62,11 @@ export default function PricingSection() {
     window.open(url, "_blank");
   };
 
-  const cardVariant = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { delay: i * 0.15, duration: 0.5, type: "spring", stiffness: 120 },
-    }),
-  };
-
   return (
-    <section id="pricing" className="relative py-24 bg-black text-white overflow-hidden">
+    <section
+      id="pricing"
+      className="relative py-24 bg-black text-white overflow-hidden"
+    >
       {/* Floating particles */}
       <div className="absolute inset-0">
         {[...Array(12)].map((_, i) => (
@@ -94,6 +87,7 @@ export default function PricingSection() {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-purple-400 to-cyan-400 text-transparent bg-clip-text drop-shadow-lg"
         >
@@ -103,6 +97,7 @@ export default function PricingSection() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15 }}
           className="text-gray-400 mb-16 max-w-2xl mx-auto"
         >
@@ -117,20 +112,31 @@ export default function PricingSection() {
             return (
               <motion.div
                 key={idx}
-                custom={idx}
-                initial="hidden"
-                whileInView="visible"
-                variants={cardVariant}
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: {
+                    delay: idx * 0.15,
+                    duration: 0.5,
+                    type: "spring",
+                    stiffness: 120,
+                  },
+                }}
+                viewport={{ once: true }}
                 whileHover={{
                   scale: 1.08,
                   rotateX: 6,
                   rotateY: -6,
-                  boxShadow: "0 0 70px rgba(236,72,153,0.9), 0 0 50px rgba(34,211,238,0.5)",
+                  boxShadow:
+                    "0 0 70px rgba(236,72,153,0.9), 0 0 50px rgba(34,211,238,0.5)",
                 }}
                 className={`relative flex flex-col justify-between rounded-3xl p-8 backdrop-blur-md border overflow-hidden cursor-pointer transition-all
-                  ${isHighlight
-                    ? "bg-gradient-to-br from-purple-600/80 via-pink-500/80 to-red-500/80 border-pink-400 shadow-[0_0_60px_-5px_rgba(236,72,153,0.8)]"
-                    : "bg-white/5 border-zinc-700 hover:border-cyan-400/60"
+                  ${
+                    isHighlight
+                      ? "bg-gradient-to-br from-purple-600/80 via-pink-500/80 to-red-500/80 border-pink-400 shadow-[0_0_60px_-5px_rgba(236,72,153,0.8)]"
+                      : "bg-white/5 border-zinc-700 hover:border-cyan-400/60"
                   }
                 `}
               >

@@ -27,27 +27,6 @@ const services = [
 ];
 
 export default function Services() {
-  // Variants for fast, staggered animations
-  const cardVariant = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.6, delay: i * 0.1, type: "spring", stiffness: 80 },
-    }),
-  };
-
-  const headingVariant = {
-    hidden: { opacity: 0, y: -20, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } },
-  };
-
-  const subtitleVariant = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
   return (
     <section
       id="services"
@@ -59,21 +38,30 @@ export default function Services() {
       <div className="absolute bottom-10 right-0 w-80 h-80 bg-cyan-400/10 blur-3xl rounded-full animate-ping"></div>
 
       <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-        {/* Animated Heading */}
+        {/* Heading */}
         <motion.h2
-          initial="hidden"
-          animate="visible"
-          variants={headingVariant}
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: { duration: 0.5 },
+          }}
+          viewport={{ once: true }}
           className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-cyan-400 text-transparent bg-clip-text"
         >
           Our Services
         </motion.h2>
 
-        {/* Animated Subtitle */}
+        {/* Subtitle */}
         <motion.p
-          initial="hidden"
-          animate="visible"
-          variants={subtitleVariant}
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, delay: 0.1 },
+          }}
+          viewport={{ once: true }}
           className="text-gray-400 mb-12 max-w-2xl mx-auto text-lg"
         >
           We craft solutions that move fast, scale seamlessly, and deliver real business value.
@@ -84,10 +72,19 @@ export default function Services() {
           {services.map((service, idx) => (
             <motion.div
               key={idx}
-              custom={idx}
-              initial="hidden"
-              animate="visible"
-              variants={cardVariant}
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                transition: {
+                  duration: 0.6,
+                  delay: idx * 0.1,
+                  type: "spring",
+                  stiffness: 80,
+                },
+              }}
+              viewport={{ once: true }}
               whileHover={{
                 scale: 1.05,
                 rotate: 1,
@@ -107,7 +104,9 @@ export default function Services() {
               <h3 className="text-xl font-semibold mb-2 relative z-10">{service.title}</h3>
 
               {/* Description */}
-              <p className="text-gray-400 text-sm leading-relaxed relative z-10">{service.description}</p>
+              <p className="text-gray-400 text-sm leading-relaxed relative z-10">
+                {service.description}
+              </p>
             </motion.div>
           ))}
         </div>

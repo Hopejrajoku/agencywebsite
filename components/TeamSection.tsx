@@ -12,15 +12,6 @@ const teamMembers = [
 ];
 
 export default function MysteriousTeam() {
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1, duration: 0.6, type: "spring", stiffness: 100 },
-    }),
-  };
-
   return (
     <section className="py-24 bg-black text-white overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 text-center mb-16">
@@ -36,20 +27,29 @@ export default function MysteriousTeam() {
         {teamMembers.map((member, i) => (
           <motion.div
             key={member.name}
-            custom={i}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            variants={cardVariants}
+            transition={{
+              delay: i * 0.1,
+              duration: 0.6,
+              type: "spring",
+              stiffness: 100,
+            }}
             whileHover={{ scale: 1.1, rotateZ: 2 }}
             className="relative flex flex-col items-center p-6 bg-white/5 backdrop-blur-md border border-zinc-700 rounded-3xl hover:border-cyan-400/60 shadow-lg transition"
           >
             {/* Abstract icon with animated glow */}
             <div className="relative w-24 h-24 flex items-center justify-center mb-4">
               <User className="w-16 h-16 text-cyan-400 opacity-70 z-10" />
+
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 20,
+                  ease: "linear",
+                }}
                 className="absolute w-28 h-28 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 blur opacity-30"
               />
             </div>
