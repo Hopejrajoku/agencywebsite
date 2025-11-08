@@ -27,7 +27,7 @@ export default function Navbar() {
 
   /* ✅ 2. Active section highlighting on scroll */
   useEffect(() => {
-    const sections = ["services", "pricing", "about", "contact"];
+    const sections = ["services", "pricing","projects", "about", "contact"];
 
     const handleActive = () => {
       const scrollPos = window.scrollY + window.innerHeight / 3;
@@ -168,7 +168,7 @@ export default function Navbar() {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="md:hidden bg-black/90 backdrop-blur-xl px-6 py-6 space-y-6 flex flex-col text-white font-medium text-center border-t border-white/10"
           >
-            {["services", "pricing", "about", "contact"].map((item, i) => (
+            {["services", "pricing", "projects", "about", "contact"].map((item, i) => (
               <motion.a
                 key={item}
                 onClick={closeMenu}
